@@ -3,9 +3,9 @@
 Customer::Customer(string n, unsigned int ssn)
     : name(n), socialSecurityNumber(ssn) {}
 
-string Customer::getName() { return name; }
+string Customer::getName() const { return name; }
 
-unsigned int Customer::getSSN() { return socialSecurityNumber; }
+unsigned int Customer::getSSN() const { return socialSecurityNumber; }
 
 void Customer::enqueue() { enqueueTime = chrono::system_clock::now(); }
 
