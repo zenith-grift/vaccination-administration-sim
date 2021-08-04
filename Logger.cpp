@@ -10,13 +10,15 @@ using namespace std;
 Logger::Logger(string f, LogLevel lvl) : file(f), logLevel(lvl) {}
 
 void Logger::log(string event, const Customer &cust) {
-  // time [level] event customer
-  fstream ofs(file);
+  // [level] event customer time
+  fstream ofs(file, ios_base::app);
 
   auto time = chrono::system_clock::to_time_t(chrono::system_clock::now());
 
   if (ofs.is_open()) {
-    ofs << ctime(&time) << " [" << getLogLevel() << "] " << cust.getSSN();
+    cout << "file is open..." << endl;
+    ofs << " [" << getLogLevel() << "] " << event << " " << cust.getSSN() << " "
+        << ctime(&time);
   }
 
   ofs.close();
