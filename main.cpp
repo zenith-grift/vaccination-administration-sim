@@ -1,7 +1,9 @@
 #include <iostream>
 
 #include "Customer.h"
+#include "ExponentialDistribution.h"
 #include "Logger.h"
+#include "UniformDistribution.h"
 
 #include <chrono>
 #include <ctime>
@@ -11,8 +13,13 @@ const string LOG_FILE = ".log";
 
 using namespace std;
 int main() {
-  Logger logger(LOG_FILE, LogLevel::INFO);
+  UniformDistribution uni(1, 4);
 
+  for (int i = 0; i < 10; ++i) {
+    cout << "Uniform sample: " << uni.pullSample() << endl;
+  }
+
+  Logger logger(LOG_FILE, LogLevel::INFO);
   Customer c("josh", 66666666);
 
   c.enqueue();

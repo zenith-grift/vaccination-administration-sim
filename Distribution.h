@@ -6,12 +6,14 @@
 #define PROJECT2_JFRANDSEN_DISTRIBUTION_H
 
 #include <iostream>
+#include <random>
+#include <string>
 
 using namespace std;
 
 class Distribution {
-private:
 public:
+  virtual double pullSample() = 0;
 };
 
 #endif // PROJECT2_JFRANDSEN_DISTRIBUTION_H
