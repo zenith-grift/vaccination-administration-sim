@@ -7,9 +7,11 @@
 #include <ctime>
 #include <thread>
 
+const string LOG_FILE = ".log";
+
 using namespace std;
 int main() {
-  Logger logger("test.txt", LogLevel::INFO);
+  Logger logger(LOG_FILE, LogLevel::INFO);
 
   Customer c("josh", 66666666);
 
