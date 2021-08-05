@@ -17,15 +17,15 @@ class Clerk {
 private:
   queue<VaccinationStation *> vacantStations;
 
-  queue<Customer> *seniorQueue;
-  queue<Customer> *nonSeniorQueue;
+  queue<Customer *> *seniorQueue;
+  queue<Customer *> *nonSeniorQueue;
 
   // used by fillVacantStation
   Customer getNextCustomer();
 
 public:
   // VaccinationCenter owns the queues
-  Clerk(queue<Customer> *senior, queue<Customer> *nonSenior);
+  Clerk(queue<Customer *> *senior, queue<Customer *> *nonSenior);
 
   // VaccinationCenter will own the customers
   // VaccinationCetner will control the frequency of check-ins

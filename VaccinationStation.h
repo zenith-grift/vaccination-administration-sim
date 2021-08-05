@@ -20,10 +20,12 @@ private:
   Clerk *clerk;
   Logger *logger;
 
+  unsigned int id;
+
   ExponentialDistribution expoDist;
 
 public:
-  VaccinationStation(Clerk *c, Logger *l);
+  VaccinationStation(Clerk *c, Logger *l, unsigned int id);
   void vaccinate(Customer cust);
 };
 

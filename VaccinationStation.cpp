@@ -5,9 +5,9 @@
 
 using namespace std;
 
-VaccinationStation::VaccinationStation(Clerk *c, Logger *l)
-    : clerk(c), logger(l), expoDist(ExponentialDistribution(VACCINATION_RATE)) {
-}
+VaccinationStation::VaccinationStation(Clerk *c, Logger *l, unsigned int id)
+    : clerk(c), logger(l), expoDist(ExponentialDistribution(VACCINATION_RATE)),
+      id(id) {}
 
 void VaccinationStation::vaccinate(Customer cust) {
 

@@ -39,3 +39,22 @@ Logging should take place at all customer transitions.
 2. Check-in/Enqueue time (Logged by `Clerk`)
 3. Transferred to a VaccinationStation (Logged by `Clerk`)
 4. Finished vaccination (Logged by `VaccinationStation`)
+
+
+## Using Threads
+
+Should maybe have a separate thread for each component that can sleep.
+For example, each vaccination station should run on a separate thread because
+they are not dependent on each other. Also the customer arrival should run 
+in a separate thread because customers can arrive while vaccinations are taking
+place.
+
+This would require me to make the queues thread safe unless the clerk is the
+only one allowed to modify the queues.
+
+The logger will need to lock the file when writing in order to prevent data
+races.
+
+
+The other option is to pre-populate queues and vectors with samples
+and then coordinate those based on a global "clock"... 

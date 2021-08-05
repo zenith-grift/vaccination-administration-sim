@@ -1,6 +1,6 @@
 #include "Clerk.h"
 
-Clerk::Clerk(queue<Customer> *senior, queue<Customer> *nonSenior)
+Clerk::Clerk(queue<Customer *> *senior, queue<Customer *> *nonSenior)
     : seniorQueue(senior), nonSeniorQueue(nonSenior) {}
 
 void Clerk::signalAvailible(VaccinationStation *vs) { vacantStations.push(vs); }
@@ -8,12 +8,12 @@ void Clerk::signalAvailible(VaccinationStation *vs) { vacantStations.push(vs); }
 Customer Clerk::getNextCustomer() {
   Customer nextCustomer;
   if (seniorQueue->empty()) {
-    nextCustomer = nonSeniorQueue->front();
+    nextCustomer = *nonSeniorQueue->front();
     nonSeniorQueue->pop();
     return nextCustomer;
   }
 
-  nextCustomer = seniorQueue->front();
+  nextCustomer = *seniorQueue->front();
   seniorQueue->pop();
   return nextCustomer;
 }

@@ -18,19 +18,25 @@ using namespace std;
 
 class VaccinationCenter {
 private:
-  Logger logger;
-  vector<VaccinationStation> stations;
-  queue<Customer> seniorQueue;
-  queue<Customer> nonSeniorQueue;
-  Clerk clerk;
+  Logger *logger;
+  vector<VaccinationStation *> stations;
+  queue<Customer *> seniorQueue;
+  queue<Customer *> nonSeniorQueue;
+  Clerk *clerk;
   ExponentialDistribution customerArrivalDistribution;
 
-  unsigned int days;
+  unsigned int numDays;
+
+  // needs to be thread safe if make multi-threaded
+  unsigned int numCustomersCheckedIn;
 
 public:
-  VaccinationCenter();
+  VaccinationCenter(unsigned int numStations, unsigned int days);
+  ~VaccinationCenter();
+
   void addVaccinationStation(VaccinationStation vs);
 
+  // maybe don't need, just let the Clerk handle these
   void enqueueSenior(Customer senior);
   void enqueueNonSenior(Customer nonSenior);
 
