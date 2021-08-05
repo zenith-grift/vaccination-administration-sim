@@ -6,13 +6,25 @@
 #define PROJECT2_JFRANDSEN_VACCINATION_STATION_H
 
 #include "Customer.h"
+#include "ExponentialDistribution.h"
 #include "Logger.h"
+
+class Clerk;
 
 using namespace std;
 
+const int VACCINATION_RATE = 15; // injections per hour
+
 class VaccinationStation {
 private:
+  Clerk *clerk;
+  Logger *logger;
+
+  ExponentialDistribution expoDist;
+
 public:
+  VaccinationStation(Clerk *c, Logger *l);
+  void vaccinate(Customer cust);
 };
 
 #endif // PROJECT2_JFRANDSEN_VACCINATION_STATION_H

@@ -22,6 +22,7 @@ private:
   chrono::system_clock::time_point dequeueTime;
 
 public:
+  Customer();
   Customer(string n, unsigned int ssn);
 
   string getName() const;

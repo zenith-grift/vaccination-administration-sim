@@ -1,5 +1,6 @@
 #include "Customer.h"
 
+Customer::Customer() : name("NO-NAME"), socialSecurityNumber(-1) {}
 Customer::Customer(string n, unsigned int ssn)
     : name(n), socialSecurityNumber(ssn) {}
 

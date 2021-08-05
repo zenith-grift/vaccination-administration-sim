@@ -25,6 +25,8 @@ private:
   Clerk clerk;
   ExponentialDistribution customerArrivalDistribution;
 
+  unsigned int days;
+
 public:
   VaccinationCenter();
   void addVaccinationStation(VaccinationStation vs);

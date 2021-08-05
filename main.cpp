@@ -1,9 +1,12 @@
 #include <iostream>
 
+#include "Clerk.h"
 #include "Customer.h"
 #include "ExponentialDistribution.h"
 #include "Logger.h"
 #include "UniformDistribution.h"
+#include "VaccinationCenter.h"
+#include "VaccinationStation.h"
 
 #include <chrono>
 #include <ctime>
