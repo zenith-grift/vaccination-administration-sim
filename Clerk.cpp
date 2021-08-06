@@ -22,5 +22,5 @@ void Clerk::fillVacantStation() {
   Customer nextCustomer = getNextCustomer();
   VaccinationStation *vacantStation = vacantStations.front();
   vacantStations.pop();
-  vacantStation->vaccinate(nextCustomer);
+  vacantStation->vaccinate(&nextCustomer);
 }

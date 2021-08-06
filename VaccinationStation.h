@@ -26,7 +26,7 @@ private:
 
 public:
   VaccinationStation(Clerk *c, Logger *l, unsigned int id);
-  void vaccinate(Customer cust);
+  void vaccinate(Customer *cust);
 };
 
 #endif // PROJECT2_JFRANDSEN_VACCINATION_STATION_H
