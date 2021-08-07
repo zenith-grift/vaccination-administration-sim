@@ -13,3 +13,6 @@ double UniformDistribution::pullSample() {
   double scaled = (float)sample / (float)PRECISSION;
   return scaled;
 }
+
+unsigned int UniformDistribution::getLow() { return low; }
+unsigned int UniformDistribution::getHigh() { return high; }

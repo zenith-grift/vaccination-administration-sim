@@ -23,7 +23,8 @@ public:
   UniformDistribution(unsigned int l, unsigned int h);
   double pullSample();
   void setRange(unsigned int l, unsigned int h);
-  int getRange();
+  unsigned int getLow();
+  unsigned int getHigh();
 };
 
 #endif // PROJECT2_JFRANDSEN_UNIFORM_DISTRIBUTION_H
