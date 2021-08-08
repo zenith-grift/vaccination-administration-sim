@@ -14,15 +14,16 @@ using namespace std;
 
 class Customer {
 private:
-  string name;
+  unsigned int age;
   unsigned int socialSecurityNumber;
 
 public:
   Customer();
-  Customer(string n, unsigned int ssn);
+  Customer(unsigned int a, unsigned int ssn);
 
   string getName() const;
   unsigned int getSSN() const;
+  unsigned int getAge() const;
 };
 
 #endif // PROJECT2_JFRANDSEN_CUSTOMER_H

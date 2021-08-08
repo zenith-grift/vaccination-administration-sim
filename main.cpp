@@ -16,18 +16,14 @@ const string LOG_FILE = ".log";
 
 using namespace std;
 int main() {
-  UniformDistribution uni(1, 4);
+  VaccinationCenter vc(3, 5);
+  vc.simulateCustomerArrival();
+  vc.simulateCustomerArrival();
+  vc.simulateCustomerArrival();
+  vc.simulateCustomerArrival();
+  queue<Customer *> queue = vc.getSeniorQueue();
 
-  for (int i = 0; i < 10; ++i) {
-    cout << "Uniform sample: " << uni.pullSample() << endl;
-  }
-
-  Logger logger(LOG_FILE, LogLevel::INFO);
-  Customer c("josh", 66666666);
-
-  std::chrono::milliseconds timespan(10000); // or whatever
-  this_thread::sleep_for(timespan);
-  logger.log("Dequeue", c);
+  cout << "senior queue: " << queue.size() << endl;
 
   return 0;
 }

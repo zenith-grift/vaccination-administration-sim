@@ -1,17 +1,17 @@
 #include "Customer.h"
 
-Customer::Customer() : name("NO-NAME"), socialSecurityNumber(-1) {}
-Customer::Customer(string n, unsigned int ssn)
-    : name(n), socialSecurityNumber(ssn) {}
-
-string Customer::getName() const { return name; }
+Customer::Customer() : age(18), socialSecurityNumber(-1) {}
+Customer::Customer(unsigned int a, unsigned int ssn)
+    : age(a), socialSecurityNumber(ssn) {}
 
 unsigned int Customer::getSSN() const { return socialSecurityNumber; }
 
-void Customer::enqueue() { enqueueTime = chrono::system_clock::now(); }
+unsigned int Customer::getAge() const { return age; }
 
-void Customer::dequeue() { dequeueTime = chrono::system_clock::now(); }
-
-chrono::duration<double> Customer::getLapsedTime() {
-  return dequeueTime - enqueueTime;
-}
+/* void Customer::enqueue() { enqueueTime = chrono::system_clock::now(); } */
+/*  */
+/* void Customer::dequeue() { dequeueTime = chrono::system_clock::now(); } */
+/*  */
+/* chrono::duration<double> Customer::getLapsedTime() { */
+/*   return dequeueTime - enqueueTime; */
+/* } */

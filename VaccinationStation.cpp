@@ -1,6 +1,7 @@
 #include <chrono>
 #include <thread>
 
+#include "Clerk.h"
 #include "VaccinationStation.h"
 
 using namespace std;

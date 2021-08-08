@@ -34,6 +34,8 @@ public:
   VaccinationCenter(unsigned int numStations, unsigned int days);
   ~VaccinationCenter();
 
+  queue<Customer *> getSeniorQueue();
+
   void addVaccinationStation(VaccinationStation vs);
 
   // maybe don't need, just let the Clerk handle these

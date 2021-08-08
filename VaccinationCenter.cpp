@@ -12,7 +12,7 @@ VaccinationCenter::VaccinationCenter(unsigned int numStations,
       numDays(days), numCustomersCheckedIn(0) {
 
   logger = new Logger(LOG_FILE, LogLevel::INFO);
-  clerk = new Clerk(&seniorQueue, &nonSeniorQueue);
+  clerk = new Clerk(&seniorQueue, &nonSeniorQueue, logger);
 
   for (int i = 0; i < numStations; ++i) {
     stations.push_back(new VaccinationStation(clerk, logger, i + 1));
@@ -26,18 +26,17 @@ VaccinationCenter::~VaccinationCenter() {
 
   delete logger;
   delete clerk;
-
-  // TODO: who is responsible for deleting customers? VaccinationStation
-  // (probably)?
 }
 
 void VaccinationCenter::simulateCustomerArrival() {
   // sample the time
   int time = customerArrivalDistribution.pullSample();
-  std::chrono::milliseconds timespan(time);
+  std::chrono::milliseconds timespan(time * 10);
   this_thread::sleep_for(timespan);
 
-  Customer *tmp = new Customer("random", ++numCustomersCheckedIn);
+  Customer *tmp = new Customer(67, ++numCustomersCheckedIn);
   clerk->checkInCustomer(tmp);
-  logger->log("CUSTOMER_ARRIVED", *tmp);
+  logger->log("ARRIVED", *tmp);
 }
+
+queue<Customer *> VaccinationCenter::getSeniorQueue() { return seniorQueue; }

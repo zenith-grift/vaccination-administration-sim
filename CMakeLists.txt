@@ -10,4 +10,8 @@ add_executable(
     Logger.h Logger.cpp 
     Distribution.h
     ExponentialDistribution.h ExponentialDistribution.cpp
-    UniformDistribution.h UniformDistribution.cpp)
+    UniformDistribution.h UniformDistribution.cpp
+    VaccinationCenter.h VaccinationCenter.cpp
+    VaccinationStation.h VaccinationStation.cpp
+    Clerk.h Clerk.cpp)
+    
