@@ -16,11 +16,8 @@ const string LOG_FILE = ".log";
 
 using namespace std;
 int main() {
-  VaccinationCenter vc(3, 5);
-  vc.simulateCustomerArrival();
-  vc.simulateCustomerArrival();
-  vc.simulateCustomerArrival();
-  vc.simulateCustomerArrival();
+  VaccinationCenter vc(3, 1);
+  vc.runSimulation();
   queue<Customer *> queue = vc.getSeniorQueue();
 
   cout << "senior queue: " << queue.size() << endl;

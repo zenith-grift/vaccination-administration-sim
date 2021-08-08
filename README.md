@@ -58,3 +58,10 @@ races.
 
 The other option is to pre-populate queues and vectors with samples
 and then coordinate those based on a global "clock"... 
+
+
+## Timing
+In order to simulate the timing I decided to actually sleep/block during
+a phase where a time sample is taken. Since I don't want to wait five days
+for the simulation to finish, I ran the simulation where 1 hour = 1 second.
+This allows for a 5 day simulation to not even take a couple of minutes.

@@ -7,5 +7,6 @@ ExponentialDistribution::ExponentialDistribution(int r) : rate(r) {
 double ExponentialDistribution::pullSample() {
   double sample = distribution(engine);
 
-  return sample * 10000;
+  cout << "sample: " << sample << endl;
+  return sample;
 }
