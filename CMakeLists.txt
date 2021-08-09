@@ -13,5 +13,7 @@ add_executable(
     UniformDistribution.h UniformDistribution.cpp
     VaccinationCenter.h VaccinationCenter.cpp
     VaccinationStation.h VaccinationStation.cpp
-    Clerk.h Clerk.cpp)
+    Clerk.h Clerk.cpp
+    SynchronizedQueue.h
+    StatsHelper.h StatsHelper.cpp)
     

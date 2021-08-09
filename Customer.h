@@ -16,6 +16,8 @@ class Customer {
 private:
   unsigned int age;
   unsigned int socialSecurityNumber;
+  chrono::system_clock::time_point arrivalTime;
+  double checkInTime, startVaccinationTime, endVaccinationTime, totalTime;
 
 public:
   Customer();
@@ -24,6 +26,19 @@ public:
   string getName() const;
   unsigned int getSSN() const;
   unsigned int getAge() const;
+
+  chrono::system_clock::time_point getArrivalTime() const;
+  void setArrivalTime(chrono::system_clock::time_point time);
+
+  // milliseconds for duration of event
+  double getCheckInTimeDelta() const;
+  double getStartVaccinationTimeDelta() const;
+  double getEndVaccinationTimeDelta() const;
+  double getTotalTimeDelta() const;
+  void setCheckInTime(double time);
+  void setStartVaccinationTime(double time);
+  void setEndVaccinationTime(double time);
+  void setTotalTime(double time);
 };
 
 #endif // PROJECT2_JFRANDSEN_CUSTOMER_H

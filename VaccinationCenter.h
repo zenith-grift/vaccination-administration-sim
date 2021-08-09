@@ -5,7 +5,7 @@
 #ifndef PROJECT2_JFRANDSEN_VACCINATION_CENTER_H
 #define PROJECT2_JFRANDSEN_VACCINATION_CENTER_H
 
-#include <queue>
+#include <chrono>
 #include <vector>
 
 #include "Clerk.h"
@@ -20,12 +20,15 @@ class VaccinationCenter {
 private:
   Logger *logger;
   vector<VaccinationStation *> stations;
-  queue<Customer *> seniorQueue;
-  queue<Customer *> nonSeniorQueue;
+  SynchronizedQueue<Customer *> seniorQueue;
+  SynchronizedQueue<Customer *> nonSeniorQueue;
   Clerk *clerk;
   ExponentialDistribution customerArrivalDistribution;
+  ExponentialDistribution vaccinationDistribution;
+  UniformDistribution ageDist;
 
   unsigned int numDays;
+  chrono::system_clock::time_point simulationStartTime;
 
   // needs to be thread safe if make multi-threaded
   unsigned int numCustomersCheckedIn;
@@ -34,15 +37,18 @@ public:
   VaccinationCenter(unsigned int numStations, unsigned int days);
   ~VaccinationCenter();
 
-  queue<Customer *> getSeniorQueue();
+  SynchronizedQueue<Customer *> *getSeniorQueue();
+  SynchronizedQueue<Customer *> *getNonSeniorQueue();
 
   void addVaccinationStation(VaccinationStation vs);
 
-  // maybe don't need, just let the Clerk handle these
-  void enqueueSenior(Customer senior);
-  void enqueueNonSenior(Customer nonSenior);
+  void incrementNumCheckedInCustomers();
+  unsigned int getNumCheckedInCustomers();
+
+  chrono::system_clock::time_point getSimulationStartTime();
 
   void simulateCustomerArrival();
+  void runCustomerArrivals();
   void runSimulation();
 };
 

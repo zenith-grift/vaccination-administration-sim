@@ -1,6 +1,7 @@
 #include <chrono>
 #include <ctime>
 #include <fstream>
+#include <mutex>
 #include <sstream>
 
 #include "Logger.h"
@@ -9,16 +10,41 @@ using namespace std;
 
 Logger::Logger(string f, LogLevel lvl) : file(f), logLevel(lvl) {}
 
-void Logger::log(string event, const Customer &cust) {
-  // [level] event customer time
+void Logger::log(LogEvent event, const Customer &cust) {
+  // [level] event customer time [ms from start]
+
+  string eventString;
+  double time;
+
+  switch (event) {
+  case ARRIVE:
+    eventString = "ARRIVE";
+    time = 0;
+    break;
+  case CHECK_IN:
+    time = cust.getCheckInTimeDelta();
+    eventString = "CHECK_IN";
+    break;
+  case START_VAC:
+    time = cust.getStartVaccinationTimeDelta();
+    eventString = "START_VAC";
+    break;
+  case END_VAC:
+    time = cust.getEndVaccinationTimeDelta();
+    eventString = "END_VAC";
+    break;
+  case FINISH:
+    time = cust.getTotalTimeDelta();
+    eventString = "FINISH";
+    break;
+  }
+
+  mutex mut;
+  lock_guard<mutex> lock(mut);
   fstream ofs(file, ios_base::app);
-
-  auto time = chrono::system_clock::to_time_t(chrono::system_clock::now());
-
   if (ofs.is_open()) {
-    cout << "file is open..." << endl;
-    ofs << " [" << getLogLevel() << "] " << event << " " << cust.getSSN() << " "
-        << ctime(&time);
+    ofs << " [" << getLogLevel() << "] " << eventString << " " << cust.getSSN()
+        << " " << time << endl;
   }
 
   ofs.close();

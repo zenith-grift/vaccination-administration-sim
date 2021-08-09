@@ -15,6 +15,7 @@
 using namespace std;
 
 enum LogLevel { INFO, WARNING, ERROR, NONE };
+enum LogEvent { ARRIVE, CHECK_IN, START_VAC, END_VAC, FINISH };
 
 class Logger {
 private:
@@ -24,7 +25,7 @@ private:
 public:
   Logger(string f, LogLevel lvl);
 
-  void log(string event, const Customer &cust);
+  void log(LogEvent event, const Customer &cust);
   string getFile();
   void setFile(string f);
   string getLogLevel();

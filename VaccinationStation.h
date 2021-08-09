@@ -13,8 +13,6 @@ class Clerk;
 
 using namespace std;
 
-const int VACCINATION_RATE = 15; // injections per hour
-
 class VaccinationStation {
 private:
   Clerk *clerk;
@@ -22,11 +20,13 @@ private:
 
   unsigned int id;
 
-  ExponentialDistribution expoDist;
+  ExponentialDistribution *expoDist;
 
 public:
-  VaccinationStation(Clerk *c, Logger *l, unsigned int id);
-  void vaccinate(Customer *cust);
+  VaccinationStation(Clerk *c, Logger *l, unsigned int id,
+                     ExponentialDistribution *dist);
+  void signalReady();
+  void vaccinate(Customer cust);
 };
 
 #endif // PROJECT2_JFRANDSEN_VACCINATION_STATION_H
