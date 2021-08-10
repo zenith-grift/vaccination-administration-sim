@@ -1,43 +1,49 @@
+#include <iomanip>
 #include <iostream>
+#include <string>
 
-#include "Clerk.h"
-#include "Customer.h"
-#include "ExponentialDistribution.h"
-#include "Logger.h"
 #include "StatsHelper.h"
-#include "UniformDistribution.h"
 #include "VaccinationCenter.h"
-#include "VaccinationStation.h"
 
-#include <chrono>
-#include <ctime>
-#include <thread>
-
-const string LOG_FILE = ".log";
 const int NUM_STATIONS = 3;
 const int NUM_DAYS = 5;
+
+const double CONVERSION_TO_MINUTES = 1.0 / 1000.0 * 60.0;
 
 using namespace std;
 int main() {
 
   StatsHelper sh(LOG_FILE);
   VaccinationCenter vc(NUM_STATIONS, NUM_DAYS);
+
+  cout << "Starting Simulation...." << endl;
   vc.runSimulation();
+  cout << "Finished Simulation....\n" << endl;
 
-  SynchronizedQueue<Customer *> *sq = vc.getSeniorQueue();
-  SynchronizedQueue<Customer *> *nsq = vc.getNonSeniorQueue();
-  cout << "senior_size: " << sq->size() << ", non_senior_size: " << nsq->size()
-       << endl;
-
-  cout << "----------------------------------" << endl << endl;
-  auto checkin_avg = sh.getAverageTime("CHECK_IN");
-  auto vac_avg = sh.getAverageTime("END_VAC");
+  int colWidth = 22;
+  int numCols = 5;
+  int barWidth = colWidth * numCols + numCols + 1;
+  auto checkin_avg = sh.getAverageTime("CHECK_IN") * CONVERSION_TO_MINUTES;
+  auto vac_avg = sh.getAverageTime("END_VAC") * CONVERSION_TO_MINUTES;
+  auto tot_time = sh.getAverageTime("FINISH") * CONVERSION_TO_MINUTES;
   auto tot_cust = sh.getNumberOfCusotmersServed();
-  auto tot_time = sh.getAverageTime("FINISH");
 
-  cout << "\ncheck-in: " << checkin_avg << ", vaccination: " << vac_avg
-       << ", total cust: " << tot_cust
-       << ", avg cust/day: " << double(tot_cust) / double(NUM_DAYS)
-       << ", avg total time: " << tot_time << endl;
+  cout << "Results: days = " << NUM_DAYS << ", #stations = " << NUM_STATIONS
+       << endl;
+  cout << string(barWidth, '-') << endl;
+  cout << "|" << setw(colWidth) << "Check-In-Avg [min]"
+       << "|" << setw(colWidth) << "Vaccination-Avg [min]"
+       << "|" << setw(colWidth) << "Total-Time-Avg [min]"
+       << "|" << setw(colWidth) << "Customers-Served"
+       << "|" << setw(colWidth) << "Customers-Per-Day-Avg"
+       << "|" << endl;
+
+  cout << "|" << setw(colWidth) << setprecision(4) << checkin_avg << "|"
+       << setw(colWidth) << setprecision(4) << vac_avg << "|" << setw(colWidth)
+       << setprecision(4) << tot_time << "|" << setw(colWidth)
+       << setprecision(4) << tot_cust << "|" << setw(colWidth)
+       << setprecision(4) << double(tot_cust) / double(NUM_DAYS) << "|" << endl;
+  cout << string(barWidth, '-') << endl;
+
   return 0;
 }

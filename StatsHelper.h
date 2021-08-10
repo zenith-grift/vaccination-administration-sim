@@ -5,7 +5,6 @@
 #ifndef PROJECT2_JFRANDSEN_STATS_HELPER_H
 #define PROJECT2_JFRANDSEN_STATS_HELPER_H
 
-#include <iostream>
 #include <string>
 
 using namespace std;

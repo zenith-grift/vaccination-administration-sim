@@ -6,8 +6,6 @@
 #define PROJECT2_JFRANDSEN_CUSTOMER_H
 
 #include <chrono>
-#include <ctime>
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -23,14 +21,14 @@ public:
   Customer();
   Customer(unsigned int a, unsigned int ssn);
 
-  string getName() const;
   unsigned int getSSN() const;
   unsigned int getAge() const;
 
+  // arrivalTime is an absolute time that is used to calculate
+  // total duration of process at the end of simulation
   chrono::system_clock::time_point getArrivalTime() const;
   void setArrivalTime(chrono::system_clock::time_point time);
 
-  // milliseconds for duration of event
   double getCheckInTimeDelta() const;
   double getStartVaccinationTimeDelta() const;
   double getEndVaccinationTimeDelta() const;

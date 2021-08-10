@@ -3,13 +3,10 @@
 
 #include "Clerk.h"
 
-const unsigned int SENIOR_AGE = 65;
-
 Clerk::Clerk(SynchronizedQueue<Customer *> *senior,
-             SynchronizedQueue<Customer *> *nonSenior, Logger *l,
-             chrono::system_clock::time_point *time)
+             SynchronizedQueue<Customer *> *nonSenior, Logger *l)
     : seniorQueue(senior), nonSeniorQueue(nonSenior), logger(l),
-      checkInDistribution(1, 4), simulationStartTime(time) {}
+      checkInDistribution(CHECK_IN_LOWER, CHECK_IN_UPPER) {}
 
 void Clerk::signalAvailible(VaccinationStation *vs) { vacantStations.push(vs); }
 
@@ -25,8 +22,10 @@ Customer Clerk::getNextCustomer() {
 }
 
 void Clerk::checkInCustomer(Customer *cust) {
+  // start time for check-in process
   chrono::system_clock::time_point start = chrono::system_clock::now();
 
+  // 1 hour = 1 second
   double sampleTimeMinutes = checkInDistribution.pullSample();
   std::chrono::milliseconds timespan(int(sampleTimeMinutes / 60.0 * 1000.0));
   this_thread::sleep_for(timespan);
@@ -44,9 +43,6 @@ void Clerk::checkInCustomer(Customer *cust) {
 }
 
 int Clerk::getNumberOfVacant() { return vacantStations.size(); }
-chrono::system_clock::time_point *Clerk::getSimulationStartTime() {
-  return simulationStartTime;
-};
 
 thread Clerk::fillVacantStation() {
   // this should block if empty

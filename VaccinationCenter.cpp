@@ -7,21 +7,15 @@
 
 using namespace std;
 
-const string LOG_FILE = ".log";
-const int ARRIVAL_RATE = 30;     // customers arrive per hour
-const int VACCINATION_RATE = 15; // vaccinations per hour
-const int OPERATING_HOURS = 12;
-
 VaccinationCenter::VaccinationCenter(unsigned int numStations,
                                      unsigned int days)
     : customerArrivalDistribution(ExponentialDistribution(ARRIVAL_RATE)),
       vaccinationDistribution(ExponentialDistribution(VACCINATION_RATE)),
-      ageDist(12, 100), numDays(days), numCustomersCheckedIn(0) {
+      ageDist(MIN_AGE, MAX_AGE), numDays(days), numCustomersCheckedIn(0) {
 
   logger = new Logger(LOG_FILE, LogLevel::INFO);
   logger->clearLog();
-  clerk =
-      new Clerk(&seniorQueue, &nonSeniorQueue, logger, &simulationStartTime);
+  clerk = new Clerk(&seniorQueue, &nonSeniorQueue, logger);
 
   for (int i = 0; i < numStations; ++i) {
     stations.push_back(
@@ -37,10 +31,6 @@ VaccinationCenter::~VaccinationCenter() {
 
   delete logger;
   delete clerk;
-}
-
-chrono::system_clock::time_point VaccinationCenter::getSimulationStartTime() {
-  return simulationStartTime;
 }
 
 void VaccinationCenter::incrementNumCheckedInCustomers() {
@@ -81,21 +71,16 @@ SynchronizedQueue<Customer *> *VaccinationCenter::getNonSeniorQueue() {
 
 void VaccinationCenter::runCustomerArrivals() {
   // Simulation time: 1 hour real time === 1 second simulation time
-  // this allows for a 5 day simulation to last less than a minute
   auto start = chrono::system_clock::now();
   chrono::duration<double> elapsedTime = start - start;
 
   while (elapsedTime.count() < numDays * OPERATING_HOURS) {
     simulateCustomerArrival();
     elapsedTime = chrono::system_clock::now() - start;
-    cout << "elapsed time (s): " << elapsedTime.count()
-         << ", minutes: " << elapsedTime.count() / 60.0
-         << ", custs: " << getNumCheckedInCustomers() << endl;
   }
 }
 
 void VaccinationCenter::runSimulation() {
-  simulationStartTime = chrono::system_clock::now();
   vector<thread> vaccinationThreads;
 
   packaged_task<void()> arrivalsTask(

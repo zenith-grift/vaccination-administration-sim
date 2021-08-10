@@ -5,7 +5,6 @@
 #ifndef PROJECT2_JFRANDSEN_EXPONENTIAL_DISTRIBUTION_H
 #define PROJECT2_JFRANDSEN_EXPONENTIAL_DISTRIBUTION_H
 
-#include <iostream>
 #include <random>
 #include <string>
 

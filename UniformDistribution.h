@@ -5,13 +5,13 @@
 #ifndef PROJECT2_JFRANDSEN_UNIFORM_DISTRIBUTION_H
 #define PROJECT2_JFRANDSEN_UNIFORM_DISTRIBUTION_H
 
-#include <iostream>
 #include <random>
-#include <string>
 
 #include "Distribution.h"
 
 using namespace std;
+
+const unsigned int PRECISSION = 100;
 
 class UniformDistribution : public Distribution {
 private:

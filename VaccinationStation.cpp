@@ -15,6 +15,7 @@ void VaccinationStation::vaccinate(Customer cust) {
   chrono::system_clock::time_point start = chrono::system_clock::now();
 
   // sample the time it takes to vaccinate
+  // 1 hour = 1 sec
   std::chrono::milliseconds timespan(int(expoDist->pullSample() * 1000));
 
   chrono::duration<double, milli> t = (chrono::system_clock::now() - start);
@@ -32,13 +33,6 @@ void VaccinationStation::vaccinate(Customer cust) {
   cust.setTotalTime(totalTime.count());
   logger->log(FINISH, cust);
 
-  /* cout << "[vaccinate] station: " << id */
-  /*      << ", check-in: " << cust.getCheckInTimeDelta() << " [ms]" */
-  /*      << ", vac-start: " << cust.getStartVaccinationTimeDelta() << " [ms]"
-   */
-  /*      << ", vac-end: " << cust.getEndVaccinationTimeDelta() << " [ms]" */
-  /*      << ", tot-time: " << totalTime.count() << " [ms]" */
-  /*      << ", ssn: " << cust.getSSN() << endl; */
   signalReady();
 }
 

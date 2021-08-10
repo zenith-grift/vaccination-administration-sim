@@ -16,6 +16,13 @@
 
 using namespace std;
 
+const string LOG_FILE = ".log";  // location of output logs
+const int ARRIVAL_RATE = 30;     // customers arrive per hour
+const int VACCINATION_RATE = 15; // vaccinations per hour
+const int OPERATING_HOURS = 12;  // hours of operation per day
+const int MIN_AGE = 16;          // lower bound of age distribution
+const int MAX_AGE = 115;         // upper bound of age distribution
+
 class VaccinationCenter {
 private:
   Logger *logger;
@@ -28,7 +35,6 @@ private:
   UniformDistribution ageDist;
 
   unsigned int numDays;
-  chrono::system_clock::time_point simulationStartTime;
 
   // needs to be thread safe if make multi-threaded
   unsigned int numCustomersCheckedIn;
@@ -44,8 +50,6 @@ public:
 
   void incrementNumCheckedInCustomers();
   unsigned int getNumCheckedInCustomers();
-
-  chrono::system_clock::time_point getSimulationStartTime();
 
   void simulateCustomerArrival();
   void runCustomerArrivals();

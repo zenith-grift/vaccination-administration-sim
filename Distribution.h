@@ -5,12 +5,6 @@
 #ifndef PROJECT2_JFRANDSEN_DISTRIBUTION_H
 #define PROJECT2_JFRANDSEN_DISTRIBUTION_H
 
-#include <iostream>
-#include <random>
-#include <string>
-
-using namespace std;
-
 class Distribution {
 public:
   virtual double pullSample() = 0;

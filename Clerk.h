@@ -5,9 +5,6 @@
 #ifndef PROJECT2_JFRANDSEN_CLERK_H
 #define PROJECT2_JFRANDSEN_CLERK_H
 
-#include <future>
-#include <string>
-
 #include "Customer.h"
 #include "Logger.h"
 #include "SynchronizedQueue.h"
@@ -15,6 +12,10 @@
 #include "VaccinationStation.h"
 
 using namespace std;
+
+const unsigned int SENIOR_AGE = 65;
+const int CHECK_IN_LOWER = 1;
+const int CHECK_IN_UPPER = 4;
 
 class Clerk {
 private:
@@ -26,21 +27,14 @@ private:
 
   UniformDistribution checkInDistribution;
 
-  chrono::system_clock::time_point *simulationStartTime;
-
-  // used by fillVacantStation
   Customer getNextCustomer();
 
 public:
   // VaccinationCenter owns the queues
   Clerk(SynchronizedQueue<Customer *> *senior,
-        SynchronizedQueue<Customer *> *nonSenior, Logger *l,
-        chrono::system_clock::time_point *time);
+        SynchronizedQueue<Customer *> *nonSenior, Logger *l);
 
-  // VaccinationCenter will own the customers
-  // VaccinationCetner will control the frequency of check-ins
   void checkInCustomer(Customer *cust);
-  chrono::system_clock::time_point *getSimulationStartTime();
 
   // vacantStations will call to show they are ready
   void signalAvailible(VaccinationStation *vs);

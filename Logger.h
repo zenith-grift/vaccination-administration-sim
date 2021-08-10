@@ -5,9 +5,6 @@
 #ifndef PROJECT2_JFRANDSEN_LOGGER_H
 #define PROJECT2_JFRANDSEN_LOGGER_H
 
-#include <chrono>
-#include <ctime>
-#include <iostream>
 #include <string>
 
 #include "Customer.h"
