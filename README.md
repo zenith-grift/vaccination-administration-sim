@@ -1,4 +1,6 @@
-# Project 2
+# Vaccination Administration Simulation
+This project aims to simulate the expected wait times of customers going
+to a vaccination center and receiving a vaccination.
 
 ## Overview
 
